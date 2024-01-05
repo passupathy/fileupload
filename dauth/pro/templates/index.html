@@ -1,0 +1,86 @@
+{% extends 'home.html' %}
+
+
+    
+    {% block content %}
+
+    <div class="container-fluid">
+        <div class="col-md-offset-1 col-md-4"> <h1>UPLOAD</h1>
+
+            {% if messages %}
+
+            {% for message in messages %}
+
+            {% if message.tags == 'error' %}
+
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-{{message.tags}}">{{message}}</div>
+
+            {% endif %}
+ 
+            {% endfor %}
+
+            {% endif %}
+
+
+        
+            <form action="{% url 'iload' %}" method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <div class="form-group">
+                <label>NAME</label>
+                {{ok.car}}
+            
+            </div>
+
+            <div class="form-group">
+                <label>CHOOSE</label>
+
+                {{ok.bus}}
+            
+            </div><br>
+
+            <button type="submit" class="btn btn-primary"> UPLOAD</button>
+
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            {% if mydata %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>NAME</th>
+                        <th>FILE</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+
+                {%for data in mydata %}
+
+                <tbody>
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{data.uni}}</td>
+                        <td><a href="{{data.shine.url}}">{{data.shine}}</a></td>
+                        <td><a href="delete/{{data.id}}">DELETE</a></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+
+
+
+
+    </div>
+
+
+    {% endblock %}
